@@ -28,8 +28,29 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  const promise = new Promise((resolve, reject) => {
+    if (isPositiveAnswer && typeof isPositiveAnswer === 'boolean') {
+      // переведёт промис в состояние fulfilled с результатом "result"
+      resolve('Hooray!!! She said "Yes"!');
+    }
+    if (!isPositiveAnswer && typeof isPositiveAnswer === 'boolean') resolve('Oh no, she said "No".');
+    reject(new Error('Wrong parameter is passed! Ask her again.'));
+  });
+  promise
+    .then(
+      (result) => {
+      // первая функция-обработчик - запустится при вызове resolve
+        // eslint-disable-next-line no-console
+        console.log(result); // result - аргумент resolve
+      },
+      (error) => {
+      // вторая функция - запустится при вызове reject
+        // eslint-disable-next-line no-console
+        console.log(error); // error - аргумент reject
+      },
+    );
+  return promise;
 }
 
 
