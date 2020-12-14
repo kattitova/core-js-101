@@ -488,8 +488,54 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let res = position.map((mas) => {
+    if (mas.length === 3) return mas.every((x) => x === 'X');
+    return false;
+  });
+  if (res.includes(true)) return 'X';
+
+  res = position.map((mas) => {
+    if (mas.length === 3) return mas.every((x) => x === '0');
+    return false;
+  });
+  if (res.includes(true)) return '0';
+
+  for (let i = 0; i < position.length; i += 1) {
+    const arr = [];
+    for (let j = 0; j < position.length; j += 1) {
+      arr.push(position[j][i]);
+    }
+    res = arr.every((x) => x === 'X');
+    if (res) return 'X';
+    res = arr.every((x) => x === '0');
+    if (res) return '0';
+  }
+
+  let arr = [position[0][2], position[1][1], position[2][0]];
+  res = arr.every((x) => x === 'X');
+  if (res) return 'X';
+  res = arr.every((x) => x === '0');
+  if (res) return '0';
+
+  arr = [];
+  for (let i = 0; i < position.length; i += 1) {
+    for (let j = 0; j < position.length; j += 1) {
+      if (i === j) arr.push(position[i][j]);
+    }
+  }
+  res = arr.every((x) => x === 'X');
+  if (res) return 'X';
+  res = arr.every((x) => x === '0');
+  if (res) return '0';
+
+  res = position.map((mas) => {
+    if (mas.length < 3) return undefined;
+    return mas.every((x) => x === undefined);
+  });
+  if (res.includes(true)) return undefined;
+
+  return undefined;
 }
 
 
